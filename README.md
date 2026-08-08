@@ -32,7 +32,8 @@ for each probability $$p=\{0.2,0.5,0.75, 0.9, 0.95, 1.0\}$$ the average number o
 of a random instance of the 3-Sat problem with $$N$$ variable and a ratio between clauses and variables equal to 3.5. This ratio generates random instances of
 the 3-Sat problem containing an exponentially low number of solutions with respect to $$2^N$$.
 The probability $$p$$ sets uniformly the amplitudes of all the components of the state vector corresponding to the solution of the 3-Sat problem  in a way that the 
-probability of measuring a solution of the 3-Sat problem is equal to $$p$$.
+probability of measuring a solution of the 3-Sat problem is equal to $$p$$. It also set uniformly the aplitudes of all the components of the state vector not 
+corresponding to the solution of the 3-Sat problem  in a way that the probability of measuring not a solution of the 3-Sat problem is equal to $$1-p$$.
 
 
 # Conclusions
