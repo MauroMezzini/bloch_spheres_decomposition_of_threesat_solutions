@@ -23,7 +23,7 @@ controlled Y rotation on the last N-th qubit, but the latter is time optimized.
 * The function "stateTransformationY" take the quantum system |Q> with N qubits and transform it in a quantum system |Q1>|0>
 where |Q1> has N-1 qubits. It returns the set of bloch spheres necessary to the transformation.
 * The function "recursiveApplyY" recursively apply the function "stateTransformationY" until the system becomes
-$\ket{0}^{\otimes N}. Returns the total set of bloch spheres necessary to the decomposition.
+$$\ket{0}^{\otimes N}$$. Returns the total set of bloch spheres necessary to the decomposition.
 
 In the file controlled_R_y_target_N_helpers.cpp there are some helper functions and some functions used during the debug and the test of all the produced code.
 
