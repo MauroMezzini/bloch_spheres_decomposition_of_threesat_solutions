@@ -1,0 +1,97 @@
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+3SAT and 3SAT generator prompt
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Create c++ code for a 3Sat instance class and a 3Sat instance generator. The generator class shluod be able to generate random istances of the 3sat problem with arbitrary number of variables and arbitrary number of clauses. It shall be able to generate instances in which the number of solutions are exponentilly lower than 2^N where N is the number of variables 
+ 
+ The 3Sat istance class  shall be able to accept a set of clauses as a constructor and compute from the set the number of variables. It should be able to check if a boolean vector is a solution to the instance and shall be aable to comput the set of all solutions. If N is the number of variables then the set of all solutions correspond to a vector S of 2^N integers shuch that the binary representation of S[i] is a solution to the instance.
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Controlled rotation on the Qubit N prompt
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+Let $x$ a binary vector then define  $S(x)$  the subset of $\{1,2,\dots, N\}$ such that $x$ is the characteristic vector of $S(x)$.
+ The controlled rotation, denoted by $\bigwedge^J_N R_y(\theta)$  is a $N$-qubits quantum gate which apply the rotation $R_y(\theta)$ to a qubit $N$ of a system $\ket{Q}$ of $N$ qubits controlled by the qubits in $J \subseteq \{1,2,\dots, N-1\}$. 
+The rotation $R_y(\theta)$ is a $2 \times 2 $ matrix $[[\cos(\theta), -\sin(\theta)],[\sin(\theta), \cos(\theta)]]$.
+In practice if $\ket{Q}$ is seen as a $2^N$-dimensional vector only the components $x$ such that  $J \subseteq S(x)$ should be modified. 
+  Given a quantum system  $\ket{Q}$ of $N$ qubits, write the c++ code to perform the controlled gate, that is the function should take $J$ and $\theta$ and return the modified system $\ket{Q}$
+  
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Controlled rotation on arbitrary qubit
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ Create a similar function in which the controlled rotation can be applied to any qubits $m \in \{1,2,\dots, N\}$ controlled by the qubits in $J \subseteq \{1,2,\dots,N\} \setminus \{m\}$ 
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Test of the procedures  Controlled rotation on the Qubit N
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+Create a test with a system with 2 qubits. Components of ∣Q⟩ must be all equal to $\sqrt{1/4}$. Apply to this system a rotation of 45 degrees not controlled, that is $J= \emptyset$
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Agorithm to find (recursively) the block spheres. The recursion step
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Given the algorithm appliControlledRy write the c++ code of the following algorithm """\begin{algorithm}
+\caption{State Vector Transformation Procedure $Y$}
+\label{alg:state_transformationY}
+\begin{algorithmic}[1]
+\Require The state vector $\ket{\mathbf Q_1} =\sum_{x=0}^M A_xe^{i \phi_x}\ket{x}$ where $\phi_x=0$ for all $0 \leq x \leq M$ 
+\Ensure The set of angles of rotation $\theta_{J,N}$, $J \subseteq \{1,2, \dots, N-1\}$
+    
+    \If { $A_{0} \neq 0$}
+            \State Set $\theta_{\emptyset,N} \leftarrow -2\arctan \left (\frac{A_{1}}{A_{0}}\right )$  
+        \Else 
+            \State Set $\theta_{\emptyset,N} \leftarrow -\pi$
+        \EndIf
+    
+    \State Set $\ket{\mathbf Q_1} \leftarrow \bigwedge^{\emptyset}_N R_y(\theta_{\emptyset,N}/2) \cdot \ket{\mathbf Q_1}$  
+    \For{$x = 1 \to 2^{N-1}-1$}
+    
+        \State Let $J \subseteq \{1,\dots, N-1\}$ such that $J=S(x)$
+        \If { $A_{2x} \neq 0$}
+            \State Set $\theta_{J,N} \leftarrow -\arctan \left (\frac{A_{2x+1}}{A_{2x}}\right )$  
+        \Else 
+            \State Set $\theta_{J,N} \leftarrow -\frac{\pi}{2}$
+        \EndIf
+        \State Set $\ket{\mathbf Q_1} \leftarrow \bigwedge^J_N R_y(\theta_{J,N}) \cdot \ket{\mathbf Q_1}$  
+        \label{step:transformY}
+    \EndFor    
+\State \Return $\theta_{J,N}$, $J \subseteq \{1,2, \dots, N-1\}$
+
+\end{algorithmic}
+\end{algorithm}
+"""
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Test function to check that stateTransformationY algorithm works by "removing"
+ the last qubits 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Write a test function that create two quantum systems with three and four qubits where the amplitude of all components are different. Apply the algorithm stateTransformationY to these two system and print the thetha vector and the final states. 
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Function that removes a qubits from a quantum system Q
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+On the basis of the software in the sources write the c++ function that given the state $Q_1$ in output of the algorithm "stateTransformationY" produces a new quantum system $Q_2$ on $N-1$ qubits whose amplitudes are the amplitudes of $Q_1$ having even index.
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ The final recursive function that given a quantum system $\ket{Q}$ retrives all the angles for the 
+ bloch spheres representing  $\ket{Q}$. The output is a map:[J,m]-> R, from a controlled set $J$ and a qubit $m$
+ to an angle
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+Create a c++ recursive function such that given the algorithm "stateTransformationY" produces a new system of $N-1$ qubits and appy to thys system recursively the algorithm "stateTransformationY" until $N==1$. The output of the algorith should be a map $theta$ that maps  $J$ and the target qubit of each recursive iteration (the last qubit) to the corresponding angle.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ Function to realize the experiments
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+Create a c++ function that generate a random instance $I$, parametrized by the number of variables and the ratio between clauses and variables, of the 3Sat problem using the class "ThreeSatGenerator" then compute all solutions of that problem. Given a parameter $0 < p \leq 1$ representing a probability from the vector of solutions generate a quantun system $\ket{Q}$ such that if we measure $\ket{Q}$ the probability of measuring a solution of $I$ is $p$ and the probability of measuring an element which is not a solution of $I$ has probability $1-p$. After that, decompose the system $\ket{Q}$ in block spheres using function "recursiveApplyY". The experiment shoud return the block spheres created 
+
+
+
