@@ -4,7 +4,7 @@ C++ code to compute the Bloch spheres decomposition of a quantum system represen
 The file prompt.txt contains the prompts used to generate the C++ code by using Gemini AI. The prompts are separated by 
 a small description, which was not used in the AI app, enclosed between two rows of "%"
 
-Them main file is "threesat_prod_1.0.cpp". It contains
+The main file is "threesat_prod_1.0.cpp". It contains
 * the 3-SAT Instance Class
 * the 3-SAT Instance Generator Class
 * the function to generate the experiments
