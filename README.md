@@ -28,7 +28,7 @@ $$\ket{0}^{\otimes N}$$. Returns the total set of bloch spheres necessary to the
 In the file controlled_R_y_target_N_helpers.cpp there are some helper functions and some functions used during the debug and the test of all the produced code.
 
 The data output consistes in two csv files. The file three_sat_experiment_avg_results.csv contains for each number N of qubits and 
-for each probability $$p=\left \{0.2,0.5,0.75, 0.9, 0.95, 1.0 \right \}$$ the average number of bloch sphere necessary to decompose the quantum system containing all the solutions
+for each probability $$p=[0.2,0.5,0.75, 0.9, 0.95, 1.0 ]$$ the average number of bloch sphere necessary to decompose the quantum system containing all the solutions
 of a random instance of the 3-Sat problem with $$N$$ variable and a ratio between clauses and variables equal to 3.5. This ratio generates random instances of
 the 3-Sat problem containing an exponentially low number of solutions with respect to $$2^N$$.
 The probability $$p$$ sets uniformly the amplitudes of all the components of the state vector corresponding to the solution of the 3-Sat problem  in a way that the 
