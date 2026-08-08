@@ -337,4 +337,4 @@ int main() {
 
 
 //Command line used on Ubuntu 22.04 to compile the project:
-//g++ -std=c++17 -O2 -Wall -Wextra thresat_prod_1.0.cpp controlled_R_y_target_N.cpp controlled_R_y_target_N_helpers.cpp -o t
+//g++ -std=c++17 -O2 -Wall -Wextra threesat_prod_1.0.cpp controlled_R_y_target_N.cpp controlled_R_y_target_N_helpers.cpp -o t
